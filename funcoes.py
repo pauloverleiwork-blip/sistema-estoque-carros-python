@@ -1,6 +1,6 @@
 from config import carros, marcas, MODULOS
 from dados import salvar_dados
-from utils import validacao_int, mostrar_carros
+from utils import validacao_int, mostrar_carros, confirmar_acao
 
 def adicionar_carro():
 
@@ -41,16 +41,23 @@ def deletar_carro():
             break
 
         if 1 <= op <= len(carros):
-            carro_removido = carros.pop(op - 1)
-            print('Operação realizada com sucesso!')
+            carro_selecionado = carros[op -1]
 
-            marca_removida = carro_removido['marca']
-            if not any(carro['marca'] == marca_removida for carro in carros):
-                marcas.remove(marca_removida)
+            print('\nVeículo selecionado:')
+            mostrar_carros([carro_selecionado])
+            if confirmar_acao("\nTem certeza que deseja deletar o veículo? [S/N]: "):
+                carro_removido = carros.pop(op - 1)
+                print('Operação realizada com sucesso!')
 
-            salvar_dados(carros)
+                marca_removida = carro_removido['marca']
+                if not any(carro['marca'] == marca_removida for carro in carros):
+                    marcas.remove(marca_removida)
+
+                salvar_dados(carros)
+            else:
+                print('Operação cancelada!')
         else:
-            print('Opção inválida!')
+            print('Opção inválida')
 
 def listar_carros():
     if not carros:

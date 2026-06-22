@@ -20,3 +20,13 @@ def mostrar_carros(carros):
         print(
             f'\n{i} - {carro['marca']}\nModelo: {carro['modelo']}\nCor: {carro['cor']}\nQuilometragem: {carro['quilometragem']:,}\nAno: {carro['ano']}\nPreço: R${carro['preco']:,}')
 
+def confirmar_acao(msg):
+    while True:
+        resposta = input(msg).strip().upper()
+
+        if resposta == 'S':
+            return True
+        elif resposta == 'N':
+            return  False
+        else:
+            print('\nDigite apenas S ou N!')
