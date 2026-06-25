@@ -10,6 +10,15 @@ def validacao_int(msg):
         except ValueError:
             print('Insira somentes números!')
 
+def validacao_texto(msg):
+    while True:
+        texto = input(msg).upper().strip()
+
+        if texto == '':
+            print('O campo não pode ficar vazio!')
+            continue
+        return texto
+
 def mostrar_carros(carros):
 
     if not carros:

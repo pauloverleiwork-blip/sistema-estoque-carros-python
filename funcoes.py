@@ -1,6 +1,6 @@
 from config import carros, marcas, MODULOS
 from dados import salvar_dados
-from utils import validacao_int, mostrar_carros, confirmar_acao
+from utils import validacao_int, validacao_texto, mostrar_carros, confirmar_acao
 
 def adicionar_carro():
 
@@ -8,7 +8,7 @@ def adicionar_carro():
 
     for modulo in MODULOS:
 
-        valor = input(f'Digite {modulo}: ').strip().upper()
+        valor = validacao_texto(f'Digite {modulo}: ')
         novo_carro[modulo] = valor
 
     preco = validacao_int('Digite o preço: R$ ')
@@ -41,7 +41,8 @@ def deletar_carro():
             break
 
         if 1 <= op <= len(carros):
-            carro_selecionado = carros[op -1]
+
+            carro_selecionado = carros[op - 1]
 
             print('\nVeículo selecionado:')
             mostrar_carros([carro_selecionado])
@@ -68,12 +69,11 @@ def listar_carros():
 
     input('\nPressione Enter para voltar.')
 
-
 def menu_filtrar_carros():
     while True:
         print('\n======FILTRAR======')
-        print('\n1 - Marca\n2 - Preço\n3 - Quilometragem\n4 - Ano\n0 - Voltar')
-        op = validacao_int('Digite: ')
+        print('\n1 - Marca\n2 - Preço\n3 - Quilometragem\n4 - Ano\n5 - Modelo\n6 - Cor\n0 - Voltar')
+        op = validacao_int('\nDigite: ')
 
         if op == 1:
             filtrar_marca()
@@ -83,10 +83,14 @@ def menu_filtrar_carros():
             filtrar_carro("Digite a quilometragem mínima: ","Digite a quilometragem máxima: ", "quilometragem")
         elif op == 4:
             filtrar_carro('Digite o ano mínimo: ', 'Digite o ano máximo: ', 'ano')
+        elif op == 5:
+            buscar_carro('Digite o modelo desejado: ', 'modelo')
+        elif op == 6:
+            buscar_carro('Digite a cor desejada: ', 'cor')
         elif op == 0:
             break
         else:
-            print('Digite uma opção válida!')
+            print('\nDigite uma opção válida!')
 
 def filtrar_marca():
     while True:
@@ -99,7 +103,7 @@ def filtrar_marca():
 
         print('0 - Voltar')
 
-        op = validacao_int('Digite: ')
+        op = validacao_int('\nDigite: ')
 
         if op == 0:
                 break
@@ -113,9 +117,24 @@ def filtrar_marca():
             ]
 
             mostrar_carros(carros_filtrados)
-            input('Pressione Enter para continuar')
+            input('\nPressione Enter para continuar')
         else:
             print('Opção inválida')
+
+def buscar_carro(msg,campo):
+    if not carros:
+        print('Nenhum veículo encontrado!')
+        return
+
+    termo_busca = validacao_texto(msg)
+
+    carros_filtrados = [
+        carro for carro in carros
+        if termo_busca in carro[campo].upper()
+    ]
+
+    mostrar_carros(carros_filtrados)
+    input('\nPressione Enter para voltar.')
 
 def filtrar_carro(msg_min,msg_max,modulo):
     while True:
@@ -143,7 +162,7 @@ def alterar_preco():
 
         print('\n0 - Voltar')
 
-        op = validacao_int('Digite o carro que desejada alterar o preço: ')
+        op = validacao_int('\nDigite o carro que desejada alterar o preço: ')
 
         if op == 0:
             break
@@ -154,7 +173,7 @@ def alterar_preco():
                 print(f'\nValor atual: R${carro_selecionado['preco']:,}')
                 print('0 - Voltar.')
 
-                valor = validacao_int('Digite o novo valor em R$: ')
+                valor = validacao_int('\nDigite o novo valor em R$: ')
 
                 if valor == 0:
                     break
