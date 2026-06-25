@@ -152,7 +152,30 @@ def filtrar_carro(msg_min,msg_max,modulo):
         input('\nPressione Enter para voltar.')
         break
 
-def alterar_preco():
+def menu_alterar_carros():
+    while True:
+        print('\n======ALTERAR VEÍCULOS======')
+        print('\n1 - Marca\n2 - Preço\n3 - Quilometragem\n4 - Ano\n5 - Modelo\n6 - Cor\n0 - Voltar')
+        op = validacao_int('\nDigite: ')
+
+        if op == 1:
+            alterar_carro('Digite a marca: ', 'marca', 'texto')
+        elif op == 2:
+            alterar_carro('Digite o preço: ', 'preco','numero')
+        elif op == 3:
+            alterar_carro('Digite a quilometragem: ', 'quilometragem', 'numero')
+        elif op == 4:
+            alterar_carro('Digite o ano: ', 'ano', 'numero')
+        elif op == 5:
+            alterar_carro('Digite o modelo:', 'modelo', 'texto')
+        elif op == 6:
+            alterar_carro('Digite a cor: ', 'cor', 'texto')
+        elif op == 0:
+            break
+        else:
+            print('\nDigite uma opção válida!')
+
+def alterar_carro(msg,campo,tipo):
     while True:
         if not carros:
             print('\nNenhum veículo cadastrado!')
@@ -162,7 +185,7 @@ def alterar_preco():
 
         print('\n0 - Voltar')
 
-        op = validacao_int('\nDigite o carro que desejada alterar o preço: ')
+        op = validacao_int('\nDigite o carro que desejada alterar : ')
 
         if op == 0:
             break
@@ -170,15 +193,29 @@ def alterar_preco():
         if 1 <= op <= len(carros):
             carro_selecionado = carros[op - 1]
             while True:
-                print(f'\nValor atual: R${carro_selecionado['preco']:,}')
+                print(f'\nValor atual de {campo}: {carro_selecionado[campo]}')
                 print('0 - Voltar.')
 
-                valor = validacao_int('\nDigite o novo valor em R$: ')
+                if tipo == 'numero':
+                    valor = validacao_int(msg)
 
-                if valor == 0:
-                    break
+                    if valor == 0:
+                        break
 
-                carro_selecionado['preco'] = valor
+                elif tipo == 'texto':
+                    valor = validacao_texto(msg)
+
+                    if valor == 0:
+                        break
+
+                carro_selecionado[campo] = valor
+
+                if campo == 'marca':
+                    marcas.clear()
+                    for carro in carros:
+                        if carro['marca'] not in marcas:
+                            marcas.append(carro['marca'])
+
                 print('Alteração realizada!')
                 salvar_dados(carros)
                 break
