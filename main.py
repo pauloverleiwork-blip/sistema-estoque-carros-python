@@ -2,7 +2,7 @@ from funcoes import adicionar_carro,deletar_carro,listar_carros,menu_filtrar_car
 def menu_principal():
     while True:
         print('\n====Estoque de Veículos====\n1 - Adicionar\n2 - Deletar\n3 - Listar\n4 - Filtrar\n5 - Alterar veículo\n0 - Sair')
-        op = validacao_int('Digite a opção: ')
+        op = validacao_int('\nDigite a opção: ')
         if op == 1:
             adicionar_carro()
         elif op == 2:

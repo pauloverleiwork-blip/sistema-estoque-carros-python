@@ -2,6 +2,8 @@ from config import carros, marcas, MODULOS
 from dados import salvar_dados
 from utils import validacao_int, validacao_texto, mostrar_carros, confirmar_acao
 
+#=====ADICIONA VEICULOS AO ESTOQUE=====
+
 def adicionar_carro():
 
     novo_carro = {}
@@ -24,6 +26,8 @@ def adicionar_carro():
 
     if novo_carro['marca'] not in marcas:
         marcas.append(novo_carro['marca'])
+
+#=====DELETA VEICULOS DO ESTOQUE=====
 
 def deletar_carro():
     while True:
@@ -60,6 +64,9 @@ def deletar_carro():
         else:
             print('Opção inválida')
 
+#=====LISTAS=====
+
+#lista todos os veiculos do estoque
 def listar_carros():
     if not carros:
         print('\nNunhum carro cadastrado!')
@@ -69,14 +76,29 @@ def listar_carros():
 
     input('\nPressione Enter para voltar.')
 
+#Lista marcas disponiveis no estoque
+def listar_marcas():
+    if not marcas:
+        print('\nNenhuma marca encontrada!')
+        return
+
+    print('\n======MARCAS DISPONÍVEIS======')
+
+    for marca in marcas:
+       print(f'- {marca}')
+
+    input('\nPressione Enter para continuar.')
+
+#=====MENU DE FILTRO DE VEICULOS=====
+
 def menu_filtrar_carros():
     while True:
         print('\n======FILTRAR======')
-        print('\n1 - Marca\n2 - Preço\n3 - Quilometragem\n4 - Ano\n5 - Modelo\n6 - Cor\n0 - Voltar')
+        print('\n1 - Marca\n2 - Preço\n3 - Quilometragem\n4 - Ano\n5 - Modelo\n6 - Cor\n7 - Listar marcas disponíveis\n0 - Voltar')
         op = validacao_int('\nDigite: ')
 
         if op == 1:
-            filtrar_marca()
+            buscar_carro('Digite a marca desejada: ', 'marca')
         elif op == 2:
             filtrar_carro("Digite o valor mínimo: R$", "Digite o valor máximo: R$", "preco")
         elif op == 3:
@@ -87,40 +109,16 @@ def menu_filtrar_carros():
             buscar_carro('Digite o modelo desejado: ', 'modelo')
         elif op == 6:
             buscar_carro('Digite a cor desejada: ', 'cor')
+        elif op == 7:
+            listar_marcas()
         elif op == 0:
             break
         else:
             print('\nDigite uma opção válida!')
 
-def filtrar_marca():
-    while True:
-        if not marcas:
-            print('\nNenhuma marca encontrada!')
-            break
+#=====FILTROS DE VEICULOS=====#
 
-        for i, marca in enumerate(marcas, start = 1):
-           print(f'{i} - {marca}')
-
-        print('0 - Voltar')
-
-        op = validacao_int('\nDigite: ')
-
-        if op == 0:
-                break
-
-        if 1 <= op <= len(marcas):
-            marca_escolhida = marcas[op - 1]
-
-            carros_filtrados = [
-                carro for carro in carros
-                if carro['marca'] == marca_escolhida
-            ]
-
-            mostrar_carros(carros_filtrados)
-            input('\nPressione Enter para continuar')
-        else:
-            print('Opção inválida')
-
+#Filtra veiculos por cor, modelo e marca
 def buscar_carro(msg,campo):
     if not carros:
         print('Nenhum veículo encontrado!')
@@ -136,7 +134,8 @@ def buscar_carro(msg,campo):
     mostrar_carros(carros_filtrados)
     input('\nPressione Enter para voltar.')
 
-def filtrar_carro(msg_min,msg_max,modulo):
+#filtra veiculos por minimo e maximo, ano, preço e quilometragem
+def filtrar_carro(msg_min,msg_max,campo):
     while True:
         minimo = validacao_int(msg_min)
 
@@ -144,13 +143,15 @@ def filtrar_carro(msg_min,msg_max,modulo):
 
         carros_filtrados = [
             carro for carro in carros
-            if minimo <= carro[modulo] <= maximo
+            if minimo <= carro[campo] <= maximo
         ]
 
         mostrar_carros(carros_filtrados)
 
         input('\nPressione Enter para voltar.')
         break
+
+#=====MENU DE ALTERAR VEICULOS=====
 
 def menu_alterar_carros():
     while True:
@@ -159,22 +160,23 @@ def menu_alterar_carros():
         op = validacao_int('\nDigite: ')
 
         if op == 1:
-            alterar_carro('Digite a marca: ', 'marca', 'texto')
+            alterar_carro('\nDigite a nova marca: ', 'marca', 'texto')
         elif op == 2:
-            alterar_carro('Digite o preço: ', 'preco','numero')
+            alterar_carro('\nDigite o novo preço: ', 'preco','numero')
         elif op == 3:
-            alterar_carro('Digite a quilometragem: ', 'quilometragem', 'numero')
+            alterar_carro('\nDigite a nova quilometragem: ', 'quilometragem', 'numero')
         elif op == 4:
-            alterar_carro('Digite o ano: ', 'ano', 'numero')
+            alterar_carro('\nDigite o novo ano: ', 'ano', 'numero')
         elif op == 5:
-            alterar_carro('Digite o modelo:', 'modelo', 'texto')
+            alterar_carro('\nDigite o novo modelo:', 'modelo', 'texto')
         elif op == 6:
-            alterar_carro('Digite a cor: ', 'cor', 'texto')
+            alterar_carro('\nDigite a nova cor: ', 'cor', 'texto')
         elif op == 0:
             break
         else:
             print('\nDigite uma opção válida!')
 
+#Altera qualquer informação do veiculo
 def alterar_carro(msg,campo,tipo):
     while True:
         if not carros:
@@ -205,7 +207,7 @@ def alterar_carro(msg,campo,tipo):
                 elif tipo == 'texto':
                     valor = validacao_texto(msg)
 
-                    if valor == 0:
+                    if valor == '0':
                         break
 
                 carro_selecionado[campo] = valor
@@ -216,7 +218,7 @@ def alterar_carro(msg,campo,tipo):
                         if carro['marca'] not in marcas:
                             marcas.append(carro['marca'])
 
-                print('Alteração realizada!')
+                print('\nAlteração realizada!')
                 salvar_dados(carros)
                 break
         else:
