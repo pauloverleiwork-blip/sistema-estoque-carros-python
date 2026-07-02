@@ -119,7 +119,7 @@ def menu_filtrar_carros():
 #=====FILTROS DE VEICULOS=====#
 
 #Filtra veiculos por cor, modelo e marca
-def buscar_carro(msg,campo):
+def buscar_carro(msg, campo):
     if not carros:
         print('Nenhum veículo encontrado!')
         return
@@ -135,7 +135,7 @@ def buscar_carro(msg,campo):
     input('\nPressione Enter para voltar.')
 
 #filtra veiculos por minimo e maximo, ano, preço e quilometragem
-def filtrar_carro(msg_min,msg_max,campo):
+def filtrar_carro(msg_min, msg_max, campo):
     while True:
         minimo = validacao_int(msg_min)
 
@@ -150,6 +150,50 @@ def filtrar_carro(msg_min,msg_max,campo):
 
         input('\nPressione Enter para voltar.')
         break
+
+#=====MENU ORDENAR VEICULOS=====
+
+def menu_ordenar_carros():
+    while True:
+        print('\n======ORDENAR VEÍCULOS======')
+        print('\n1 - Preço: menor para maior')
+        print('2 - Preço: maior para menor')
+        print('3 - Ano: mais antigo para mais novo')
+        print('4 - Ano: mais novo para mais antigo')
+        print('5 - Quilometragem: menor para maior')
+        print('6 - Quilometragem: maior para menor')
+        print('0 - Voltar')
+
+        op = validacao_int('\nDigite: ')
+
+        if op == 1:
+            ordenar_carros('preco', False)
+        elif op == 2:
+            ordenar_carros('preco', True)
+        elif op == 3:
+            ordenar_carros('ano', False)
+        elif op == 4:
+            ordenar_carros('ano', True)
+        elif op == 5:
+            ordenar_carros('quilometragem', False)
+        elif op == 6:
+            ordenar_carros('quilometragem', True)
+        elif op == 0:
+            break
+        else:
+            print('\nDigite uma opção válida!')
+
+#Função de ordenação de veiculos
+
+def ordenar_carros(campo, reverso):
+    if not carros:
+        print('\nNenhum veículo cadastrado!')
+        return
+    carros_ordenados = sorted(carros, key=lambda carro: int(carro[campo]), reverse=reverso)
+
+    mostrar_carros(carros_ordenados)
+
+    input('\nPressione Enter para voltar.')
 
 #=====MENU DE ALTERAR VEICULOS=====
 
@@ -187,7 +231,7 @@ def alterar_carro(msg,campo,tipo):
 
         print('\n0 - Voltar')
 
-        op = validacao_int('\nDigite o carro que desejada alterar : ')
+        op = validacao_int('\nDigite o veículo que desejada alterar: ')
 
         if op == 0:
             break
