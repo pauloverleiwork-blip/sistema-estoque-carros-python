@@ -1,4 +1,3 @@
-from time import process_time_ns
 
 from config import carros, marcas, MODULOS
 from dados import salvar_dados
@@ -270,11 +269,11 @@ def alterar_carro(msg,campo,tipo):
         else:
             print('Opção inválida')
 
-#======RELÁTIORIOS======
+#======RELATÓRIOS======
 
 def menu_relatorio():
     while True:
-        print('\n======RELÁTORIOS======')
+        print('\n======RELATÓRIOS======')
         print('1 - Quantidade de veículos em estoque')
         print('2 - Valor total do estoque')
         print('3 - Veículo mais caro')
