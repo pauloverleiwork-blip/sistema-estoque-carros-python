@@ -1,3 +1,5 @@
+from time import process_time_ns
+
 from config import carros, marcas, MODULOS
 from dados import salvar_dados
 from utils import validacao_int, validacao_texto, mostrar_carros, confirmar_acao
@@ -267,3 +269,88 @@ def alterar_carro(msg,campo,tipo):
                 break
         else:
             print('Opção inválida')
+
+#======RELÁTIORIOS======
+
+def menu_relatorio():
+    while True:
+        print('\n======RELÁTORIOS======')
+        print('1 - Quantidade de veículos em estoque')
+        print('2 - Valor total do estoque')
+        print('3 - Veículo mais caro')
+        print('4 - Veículo mais barato')
+        print('5 - Relatório geral')
+        print('0 - Voltar')
+        op = validacao_int('\nDigite: ')
+
+        if op == 1:
+            relatorio_total_veiculos()
+        elif op == 2:
+            relatorio_valor_total()
+        elif op == 3:
+            valor_min_max_veiculos(max)
+        elif op == 4:
+            valor_min_max_veiculos(min)
+        elif op == 5:
+            relatorio_geral()
+        elif op == 0:
+            break
+        else:
+            print('\nDigite uma opção válida!')
+
+def relatorio_total_veiculos():
+
+    if not carros:
+        print('\nNenhum veículo cadastrado!')
+        return
+
+    total = len(carros)
+
+    print(f'\nTotal de veículos cadastrados: {total}')
+
+    input('\nPressione Enter para voltar')
+
+
+def relatorio_valor_total():
+
+    if not carros:
+        print('\nNenhum veículo cadastrado!')
+        return
+
+    valor_total = sum(carro['preco'] for carro in carros)
+
+    print(f'\nO valor total do estoque é de R${valor_total:,}')
+
+    input('\nPressione Enter para voltar')
+
+
+def valor_min_max_veiculos(opcao):
+
+    if not carros:
+        print('\nNenhum veículo cadastrado!')
+        return
+
+    valor = opcao(carros, key=lambda carro: carro['preco'])
+
+    mostrar_carros([valor])
+
+    input('\nPressione Enter para voltar')
+
+def relatorio_geral():
+    if not carros:
+        print('\nNenhum veículo cadastrado!')
+        return
+
+    veiculos_totais = len(carros)
+    valor_total = sum(carro['preco'] for carro in carros)
+    valor_max = max(carros, key=lambda carro: carro['preco'])
+    valor_min = min(carros, key=lambda carro: carro['preco'])
+
+    print(f'Total de carros em estoque: {veiculos_totais}')
+    print(f'Valor total do estoque: R${valor_total:,}')
+    print('\nVeículo mais caro do estoque:')
+    mostrar_carros([valor_max])
+    print('\nVeículo mais barato do estoque:')
+    mostrar_carros([valor_min])
+
+    input('\nPressione Enter para voltar')
