@@ -14,4 +14,5 @@ def atualizar_marcas():
 marcas = atualizar_marcas()
 
 #Contantes
-MODULOS = ['marca', 'modelo', 'cor']
+modulos_str = ['marca', 'modelo', 'cor']
+modulos_int = ['preco', 'ano', 'quilometragem']

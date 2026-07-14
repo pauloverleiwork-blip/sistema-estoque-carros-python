@@ -8,7 +8,7 @@ def validacao_int(msg):
                 continue
             return valor
         except ValueError:
-            print('Insira somentes números!')
+            print('Insira somente números!')
 
 def validacao_texto(msg):
     while True:
@@ -22,7 +22,7 @@ def validacao_texto(msg):
 def mostrar_carros(carros):
 
     if not carros:
-        print('\nNenhum carro encontrado!')
+        print('\nNenhum véiculo cadastrado!')
         return
 
     for i, carro in enumerate(carros, start = 1):
