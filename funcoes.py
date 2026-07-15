@@ -59,14 +59,14 @@ def deletar_carro():
             else:
                 print('Operação cancelada!')
         else:
-            print(f'Digite uma opção entre 0 e {op}')
+            print(f'Digite uma opção entre 0 e {len(carros)}')
 
 #=====LISTAS=====
 
 #lista todos os veiculos do estoque
 def listar_carros():
     if not carros:
-        print('\nNunhum veículo cadastrado!')
+        print('\nNenhum veículo cadastrado!')
         return
 
     mostrar_carros(carros)
@@ -158,7 +158,7 @@ def filtrar_carro(msg_min, msg_max, campo):
 def menu_ordenar_carros():
     while True:
         print('\n======ORDENAR VEÍCULOS======')
-        print('\n1 - Preço: menor para maior\n2 - Preço: maior para menor\n3 - Ano: mais antigo para mais novo\n4 - Ano: mais novo para mais antigo\n5 - Quilometragem: menor para maior\n6 - Quilometragem: maior para menor)\n0 - Voltar')
+        print('\n1 - Preço: menor para maior\n2 - Preço: maior para menor\n3 - Ano: mais antigo para mais novo\n4 - Ano: mais novo para mais antigo\n5 - Quilometragem: menor para maior\n6 - Quilometragem: maior para menor\n0 - Voltar')
         op = validacao_int('\nDigite: ')
 
         if op == 1:
@@ -226,7 +226,7 @@ def alterar_carro(msg,campo,tipo):
 
         print('\n0 - Voltar')
 
-        op = validacao_int('\nDigite o veículo que desejada alterar: ')
+        op = validacao_int('\nDigite o veículo que deseja alterar: ')
 
         if op == 0:
             break
@@ -261,7 +261,7 @@ def alterar_carro(msg,campo,tipo):
                 salvar_dados(carros)
                 break
         else:
-            print(f'Selecione uma opção entre 0 e {op}.')
+            print(f'Selecione uma opção entre 0 e {len(carros)}.')
 
 #======RELATÓRIOS======
 

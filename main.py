@@ -3,7 +3,7 @@ from utils import validacao_int
 def menu_principal():
     while True:
         print('\n====Estoque de Veículos====')
-        print('\n1 - Adicionar\n2 - Deletar\n3 - Listar\n4 - Filtrar\n5 - Alterar veículo\n6 - Ordenar veículos\n7 - Relátorios\n0 - Sair')
+        print('\n1 - Adicionar\n2 - Deletar\n3 - Listar\n4 - Filtrar\n5 - Alterar veículo\n6 - Ordenar veículos\n7 - Relatórios\n0 - Sair')
         op = validacao_int('\nDigite: ')
 
         if op == 1:
