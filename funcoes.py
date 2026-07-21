@@ -1,7 +1,7 @@
 
 from config import carros, marcas, modulos_str, modulos_int
 from dados import salvar_dados
-from utils import validacao_int, validacao_texto, mostrar_carros, confirmar_acao
+from utils import validacao_int, validacao_texto, mostrar_carros, confirmar_acao, validacao_ano
 
 #=====ADICIONA VEICULOS AO ESTOQUE=====
 
@@ -15,8 +15,13 @@ def adicionar_carro():
         novo_carro[modulo] = valor
 
     for modulo in modulos_int:
+
         valor = validacao_int(f'Digite {modulo}: ')
         novo_carro[modulo] = valor
+
+    valor = validacao_ano('Digite o ano: ')
+    novo_carro['ano'] = valor
+
 
     carros.append(novo_carro)
     salvar_dados(carros)
@@ -142,6 +147,11 @@ def filtrar_carro(msg_min, msg_max, campo):
         minimo = validacao_int(msg_min)
 
         maximo = validacao_int(msg_max)
+
+        if minimo > maximo:
+            print('\nO valor minimo não pode ser maior que o valor máximo.')
+            input('\nPressione Enter para voltar.')
+            return
 
         carros_filtrados = [
             carro for carro in carros

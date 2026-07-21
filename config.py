@@ -15,4 +15,4 @@ marcas = atualizar_marcas()
 
 #Contantes
 modulos_str = ['marca', 'modelo', 'cor']
-modulos_int = ['preco', 'ano', 'quilometragem']
+modulos_int = ['preco', 'quilometragem']

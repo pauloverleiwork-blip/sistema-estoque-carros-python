@@ -1,3 +1,4 @@
+from datetime import date
 
 def validacao_int(msg):
     while True:
@@ -39,3 +40,21 @@ def confirmar_acao(msg):
             return  False
         else:
             print('\nDigite apenas S ou N!')
+
+
+def validacao_ano(msg):
+    ano_maximo = date.today().year + 1
+    ano_minimo = 1886
+
+    while True:
+        ano = validacao_int(msg)
+
+        if ano < ano_minimo:
+            print(f'O ano não pode ser menor que {ano_minimo}')
+            continue
+
+        if ano > ano_maximo:
+            print(f'O ano não pode ser maior que {ano_maximo}')
+            continue
+
+        return ano
