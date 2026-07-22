@@ -1,30 +1,27 @@
 from datetime import date
+from config import carros
 
 def validacao_int(msg):
     while True:
         try:
             valor = int(input(msg).strip())
             if valor < 0:
-                print('Valores negativos são inválidos!')
+                print('\nValores negativos são inválidos!')
                 continue
             return valor
         except ValueError:
-            print('Insira somente números!')
+            print('\nInsira somente números!')
 
 def validacao_texto(msg):
     while True:
         texto = input(msg).upper().strip()
 
         if texto == '':
-            print('O campo não pode ficar vazio!')
+            print('\nO campo não pode ficar vazio!')
             continue
         return texto
 
 def mostrar_carros(carros):
-
-    if not carros:
-        print('\nNenhum véiculo cadastrado!')
-        return
 
     for i, carro in enumerate(carros, start = 1):
         print(
@@ -58,3 +55,9 @@ def validacao_ano(msg):
             continue
 
         return ano
+
+def verificar_veiculos():
+    if not carros:
+        print('\nNenhum veículo cadastrado!')
+        input('\nPressione Enter para voltar.')
+        return True
