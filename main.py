@@ -1,4 +1,4 @@
-from funcoes import adicionar_carro,deletar_carro,listar_carros,menu_filtrar_carros,menu_alterar_carros,menu_ordenar_carros,menu_relatorio
+from funcoes import adicionar_carro,deletar_carro,listar_carros,menu_filtrar_carros,menu_alterar_veiculos,menu_ordenar_carros,menu_relatorio
 from utils import validacao_int
 def menu_principal():
     while True:
@@ -15,7 +15,7 @@ def menu_principal():
         elif op == 4:
             menu_filtrar_carros()
         elif op == 5:
-            menu_alterar_carros()
+            menu_alterar_veiculos()
         elif op == 6:
             menu_ordenar_carros()
         elif op == 7:

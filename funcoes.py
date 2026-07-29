@@ -212,77 +212,78 @@ def ordenar_carros(campo, reverso):
     input('\nPressione Enter para voltar.')
 
 #=====MENU DE ALTERAR VEICULOS=====
+def menu_alterar_veiculos():
+        while True:
+            if verificar_veiculos():
+                return
 
-def menu_alterar_carros():
+            print('\n======ALTERAR VEÍCULOS======')
+            mostrar_carros(carros)
+
+            print('\n0 - Voltar')
+
+            op = validacao_int('\nDigite o veículo que deseja alterar: ')
+
+            if op == 0:
+                break
+
+            if 1 <= op <= len(carros):
+                carro_selecionado = carros[op - 1]
+                menu_opcoes_alterar_veiculos(carro_selecionado)
+        else:
+            print(f'\nSelecione uma opção entre 0 e {len(carros)}.')
+
+
+def menu_opcoes_alterar_veiculos(veiculo):
     while True:
-        print('\n======ALTERAR VEÍCULOS======')
+        print('\n======OPÇÔES======')
         print('\n1 - Marca\n2 - Preço\n3 - Quilometragem\n4 - Ano\n5 - Modelo\n6 - Cor\n0 - Voltar')
         op = validacao_int('\nDigite: ')
 
         if op == 1:
-            alterar_carro('\nDigite a nova marca: ', 'marca', 'texto')
+            alterar_veiculo('\nDigite a nova marca: ', 'marca', 'texto',veiculo)
         elif op == 2:
-            alterar_carro('\nDigite o novo preço: ', 'preco','numero')
+            alterar_veiculo('\nDigite o novo preço: ', 'preco','numero',veiculo)
         elif op == 3:
-            alterar_carro('\nDigite a nova quilometragem: ', 'quilometragem', 'numero')
+            alterar_veiculo('\nDigite a nova quilometragem: ', 'quilometragem', 'numero',veiculo)
         elif op == 4:
-            alterar_carro('\nDigite o novo ano: ', 'ano', 'numero')
+            alterar_veiculo('\nDigite o novo ano: ', 'ano', 'numero',veiculo)
         elif op == 5:
-            alterar_carro('\nDigite o novo modelo:', 'modelo', 'texto')
+            alterar_veiculo('\nDigite o novo modelo:', 'modelo', 'texto',veiculo)
         elif op == 6:
-            alterar_carro('\nDigite a nova cor: ', 'cor', 'texto')
+            alterar_veiculo('\nDigite a nova cor: ', 'cor', 'texto',veiculo)
         elif op == 0:
             break
         else:
             print('\nDigite uma opção entre 0 e 6.')
 
 #Altera qualquer informação do veiculo
-def alterar_carro(msg,campo,tipo):
+def alterar_veiculo(msg,campo,tipo,veiculo):
     while True:
-        if verificar_veiculos():
-            return
+        if tipo == 'numero':
+            valor = validacao_int(msg)
 
-        mostrar_carros(carros)
-
-        print('\n0 - Voltar')
-
-        op = validacao_int('\nDigite o veículo que deseja alterar: ')
-
-        if op == 0:
-            break
-
-        if 1 <= op <= len(carros):
-            carro_selecionado = carros[op - 1]
-            while True:
-                print(f'\nValor atual de {campo}: {carro_selecionado[campo]}')
-                print('\n0 - Voltar.')
-
-                if tipo == 'numero':
-                    valor = validacao_int(msg)
-
-                    if valor == 0:
-                        break
-
-                elif tipo == 'texto':
-                    valor = validacao_texto(msg)
-
-                    if valor == '0':
-                        break
-
-                carro_selecionado[campo] = valor
-
-                if campo == 'marca':
-                    marcas.clear()
-                    for carro in carros:
-                        if carro['marca'] not in marcas:
-                            marcas.append(carro['marca'])
-
-                print('\nVeículo atualizado com sucesso!')
-                input('\nPressione Enter para continuar.')
-                salvar_dados(carros)
+            if valor == 0:
                 break
-        else:
-            print(f'\nSelecione uma opção entre 0 e {len(carros)}.')
+
+        elif tipo == 'texto':
+            valor = validacao_texto(msg)
+
+            if valor == '0':
+                break
+
+        veiculo[campo] = valor
+
+        if campo == 'marca':
+            marcas.clear()
+            for carro in carros:
+                if carro['marca'] not in marcas:
+                    marcas.append(carro['marca'])
+
+        print('\nVeículo atualizado com sucesso!')
+        input('\nPressione Enter para continuar.')
+        salvar_dados(carros)
+        break
 
 #======RELATÓRIOS======
 
