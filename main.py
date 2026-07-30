@@ -1,8 +1,8 @@
 from funcoes import adicionar_carro,deletar_carro,listar_carros,menu_filtrar_carros,menu_alterar_veiculos,menu_ordenar_carros,menu_relatorio
-from utils import validacao_int
+from utils import validacao_int, mostrar_titulo
 def menu_principal():
     while True:
-        print('\n====Estoque de Veículos====')
+        mostrar_titulo('ESTOQUE DE VEÍCULOS')
         print('\n1 - Adicionar\n2 - Deletar\n3 - Listar\n4 - Filtrar\n5 - Alterar veículo\n6 - Ordenar veículos\n7 - Relatórios\n0 - Sair')
         op = validacao_int('\nDigite: ')
 

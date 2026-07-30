@@ -1,5 +1,6 @@
 from datetime import date
 from config import carros
+import os
 
 def validacao_int(msg):
     while True:
@@ -61,3 +62,12 @@ def verificar_veiculos():
         print('\nNenhum veículo cadastrado!')
         input('\nPressione Enter para voltar.')
         return True
+
+
+def mostrar_titulo(titulo):
+    limpar_tela()
+    print(f'\n======{titulo}======')
+    return
+
+def limpar_tela():
+    os.system('cls' if os.name =='nt' else 'clear')

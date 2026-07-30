@@ -1,21 +1,20 @@
 
 from config import carros, marcas, modulos_str, modulos_int
 from dados import salvar_dados
-from utils import validacao_int, validacao_texto, mostrar_carros, confirmar_acao, validacao_ano, verificar_veiculos
+from utils import validacao_int, validacao_texto, mostrar_carros, confirmar_acao, validacao_ano, verificar_veiculos, mostrar_titulo, limpar_tela
 
 #=====ADICIONA VEICULOS AO ESTOQUE=====
 
 def adicionar_carro():
 
+    mostrar_titulo('ADICIONAR VEÍCULO')
     novo_carro = {}
 
     for modulo in modulos_str:
-
         valor = validacao_texto(f'Digite {modulo}: ')
         novo_carro[modulo] = valor
 
     for modulo in modulos_int:
-
         valor = validacao_int(f'Digite {modulo}: ')
         novo_carro[modulo] = valor
 
@@ -33,9 +32,10 @@ def adicionar_carro():
 
 def deletar_carro():
     while True:
-
         if verificar_veiculos():
             return
+
+        mostrar_titulo('DELETAR VEÍCULO')
 
         mostrar_carros(carros)
 
@@ -50,7 +50,7 @@ def deletar_carro():
 
             carro_selecionado = carros[op - 1]
 
-            print('\nVeículo selecionado:')
+            mostrar_titulo('VEÍCULO SELECIONADO')
             mostrar_carros([carro_selecionado])
             if confirmar_acao("\nTem certeza que deseja deletar o veículo? [S/N]: "):
                 carro_removido = carros.pop(op - 1)
@@ -77,6 +77,8 @@ def listar_carros():
     if verificar_veiculos():
         return
 
+    mostrar_titulo('LISTAR VEÍCULOS')
+
     mostrar_carros(carros)
 
     input('\nPressione Enter para voltar.')
@@ -86,7 +88,7 @@ def listar_marcas():
     if verificar_veiculos():
         return
 
-    print('\n======MARCAS DISPONÍVEIS======')
+    mostrar_titulo('MOSTRAR MARCAS')
 
     for marca in marcas:
        print(f'- {marca}')
@@ -97,23 +99,30 @@ def listar_marcas():
 
 def menu_filtrar_carros():
     while True:
-        print('\n======FILTRAR======')
+        mostrar_titulo('FILTRAR VEÍCULOS')
         print('\n1 - Marca\n2 - Preço\n3 - Quilometragem\n4 - Ano\n5 - Modelo\n6 - Cor\n7 - Listar marcas disponíveis\n0 - Voltar')
         op = validacao_int('\nDigite: ')
 
         if op == 1:
+            mostrar_titulo('FILTRAR VEÍCULOS')
             buscar_carro('\nDigite a marca desejada: ', 'marca')
         elif op == 2:
+            mostrar_titulo('FILTRAR VEÍCULOS')
             filtrar_carro("\nDigite o valor mínimo: R$", "Digite o valor máximo: R$", "preco")
         elif op == 3:
+            mostrar_titulo('FILTRAR VEÍCULOS')
             filtrar_carro("\nDigite a quilometragem mínima: ","Digite a quilometragem máxima: ", "quilometragem")
         elif op == 4:
+            mostrar_titulo('FILTRAR VEÍCULOS')
             filtrar_carro('\nDigite o ano mínimo: ', 'Digite o ano máximo: ', 'ano')
         elif op == 5:
+            mostrar_titulo('FILTRAR VEÍCULOS')
             buscar_carro('\nDigite o modelo desejado: ', 'modelo')
         elif op == 6:
+            mostrar_titulo('FILTRAR VEÍCULOS')
             buscar_carro('\nDigite a cor desejada: ', 'cor')
         elif op == 7:
+            mostrar_titulo('FILTRAR VEÍCULOS')
             listar_marcas()
         elif op == 0:
             break
@@ -140,6 +149,7 @@ def buscar_carro(msg, campo):
         input('\nPressione Enter para continuar.')
         return
     else:
+        mostrar_titulo('VEÍCULO FILTRADO')
         mostrar_carros(carros_filtrados)
 
     input('\nPressione Enter para voltar.')
@@ -169,6 +179,7 @@ def filtrar_carro(msg_min, msg_max, campo):
             input('\nPressione Enter para continuar.')
             return
         else:
+            mostrar_titulo('VEÍCULO FILTRADO')
             mostrar_carros(carros_filtrados)
 
         input('\nPressione Enter para voltar.')
@@ -178,7 +189,7 @@ def filtrar_carro(msg_min, msg_max, campo):
 
 def menu_ordenar_carros():
     while True:
-        print('\n======ORDENAR VEÍCULOS======')
+        mostrar_titulo('ORDENAR VEÍCULOS')
         print('\n1 - Preço: menor para maior\n2 - Preço: maior para menor\n3 - Ano: mais antigo para mais novo\n4 - Ano: mais novo para mais antigo\n5 - Quilometragem: menor para maior\n6 - Quilometragem: maior para menor\n0 - Voltar')
         op = validacao_int('\nDigite: ')
 
@@ -206,7 +217,7 @@ def ordenar_carros(campo, reverso):
         return
 
     carros_ordenados = sorted(carros, key=lambda carro: int(carro[campo]), reverse=reverso)
-
+    mostrar_titulo('VEÍCULOS ORDENADOS')
     mostrar_carros(carros_ordenados)
 
     input('\nPressione Enter para voltar.')
@@ -217,7 +228,7 @@ def menu_alterar_veiculos():
             if verificar_veiculos():
                 return
 
-            print('\n======ALTERAR VEÍCULOS======')
+            mostrar_titulo('ALTERAR VEÍCULOS')
             mostrar_carros(carros)
 
             print('\n0 - Voltar')
@@ -236,7 +247,7 @@ def menu_alterar_veiculos():
 
 def menu_opcoes_alterar_veiculos(veiculo):
     while True:
-        print('\n======OPÇÔES======')
+        mostrar_titulo('OPÇÕES DE ALTERAÇÃO')
         print('\n1 - Marca\n2 - Preço\n3 - Quilometragem\n4 - Ano\n5 - Modelo\n6 - Cor\n0 - Voltar')
         op = validacao_int('\nDigite: ')
 
@@ -289,7 +300,7 @@ def alterar_veiculo(msg,campo,tipo,veiculo):
 
 def menu_relatorio():
     while True:
-        print('\n======RELATÓRIOS======')
+        mostrar_titulo('RELATÓRIOS')
         print('\n1 - Quantidade de veículos em estoque\n2 - Valor total do estoque\n3 - Veículo mais caro\n4 - Veículo mais barato\n5 - Relatório geral\n0 - Voltar')
         op = validacao_int('\nDigite: ')
 
