@@ -248,20 +248,27 @@ def menu_alterar_veiculos():
 def menu_opcoes_alterar_veiculos(veiculo):
     while True:
         mostrar_titulo('OPÇÕES DE ALTERAÇÃO')
+        mostrar_carros([veiculo])
         print('\n1 - Marca\n2 - Preço\n3 - Quilometragem\n4 - Ano\n5 - Modelo\n6 - Cor\n0 - Voltar')
         op = validacao_int('\nDigite: ')
 
         if op == 1:
+            mostrar_titulo('ALTERAR marca')
             alterar_veiculo('\nDigite a nova marca: ', 'marca', 'texto',veiculo)
         elif op == 2:
+            mostrar_titulo('ALTERAR PREÇO')
             alterar_veiculo('\nDigite o novo preço: ', 'preco','numero',veiculo)
         elif op == 3:
+            mostrar_titulo('ALTERAR QUILOMETRAGEM')
             alterar_veiculo('\nDigite a nova quilometragem: ', 'quilometragem', 'numero',veiculo)
         elif op == 4:
+            mostrar_titulo('ALTERAR ANO')
             alterar_veiculo('\nDigite o novo ano: ', 'ano', 'numero',veiculo)
         elif op == 5:
+            mostrar_titulo('ALTERAR MODELO')
             alterar_veiculo('\nDigite o novo modelo:', 'modelo', 'texto',veiculo)
         elif op == 6:
+            mostrar_titulo('ALTERAR COR')
             alterar_veiculo('\nDigite a nova cor: ', 'cor', 'texto',veiculo)
         elif op == 0:
             break
@@ -272,12 +279,14 @@ def menu_opcoes_alterar_veiculos(veiculo):
 def alterar_veiculo(msg,campo,tipo,veiculo):
     while True:
         if tipo == 'numero':
+            print(f'\nValor atual: {veiculo[campo]:,}')
             valor = validacao_int(msg)
 
             if valor == 0:
                 break
 
         elif tipo == 'texto':
+            print(f'\nDado atual: {veiculo[campo]}')
             valor = validacao_texto(msg)
 
             if valor == '0':
