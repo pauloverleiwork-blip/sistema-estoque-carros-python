@@ -1,52 +1,66 @@
 # Sistema de Estoque de Veículos
 
-Projeto desenvolvido em Python para gerenciamento de veículos via terminal, com persistência de dados em JSON.
+Sistema de gerenciamento de veículos desenvolvido em Python e executado pelo terminal.
 
-## Sobre o Projeto
+O projeto permite cadastrar, consultar, alterar, remover, filtrar e ordenar veículos, além de gerar relatórios básicos do estoque. Os dados são armazenados localmente em um arquivo JSON.
 
-Este projeto foi criado como parte da minha evolução nos estudos de programação Python.
+## Versão atual
 
-A proposta é desenvolver um sistema próprio e evoluí-lo gradualmente, aplicando novos conceitos conforme avanço nos estudos. Cada versão representa uma etapa prática de aprendizado, organização de código e melhoria das funcionalidades.
+**v1.3.0**
+
+A versão 1.3.0 é focada em melhorias de fluxo, padronização dos menus, validações e experiência de uso no terminal.
 
 ## Funcionalidades
 
-* Adicionar veículos
-* Listar veículos cadastrados
-* Remover veículos com confirmação
-* Alterar dados de veículos
+- Cadastro de veículos
+- Listagem de veículos cadastrados
+- Exclusão de veículos com confirmação
+- Alteração de:
+  - marca
+  - modelo
+  - cor
+  - ano
+  - preço
+  - quilometragem
+- Busca por:
+  - marca
+  - modelo
+  - cor
+- Filtros por intervalo de:
+  - preço
+  - quilometragem
+  - ano
+- Ordenação por:
+  - preço
+  - ano
+  - quilometragem
+- Relatórios com:
+  - quantidade de veículos
+  - valor total do estoque
+  - veículo mais caro
+  - veículo mais barato
+  - resumo geral
+- Persistência automática dos dados em JSON
+- Validação de entradas numéricas e textuais
+- Validação específica para o ano do veículo
+- Limpeza automática da tela durante a navegação
+- Títulos padronizados em cada menu
 
-  * Marca
-  * Modelo
-  * Cor
-  * Ano
-  * Quilometragem
-  * Preço
-* Buscar veículos por:
+## Melhorias da v1.3.0
 
-  * Marca
-  * Modelo
-  * Cor
-* Filtrar veículos por:
+- Reformulação do fluxo de alteração de veículos
+- Seleção do veículo antes da escolha do campo que será alterado
+- Exibição do veículo selecionado durante a alteração
+- Exibição do valor atual antes da edição
+- Padronização dos títulos das telas
+- Limpeza do terminal durante a troca de menus
+- Melhorias nas mensagens de sucesso, erro e navegação
+- Validação de ano aplicada ao cadastro e à alteração
+- Persistência dos dados antes da confirmação final ao usuário
+- Redução de repetições por meio de funções reutilizáveis
+- Melhor separação de responsabilidades entre as funções
 
-  * Faixa de preço
-  * Faixa de quilometragem
-  * Ano
-* Listar marcas disponíveis no estoque
-* Ordenar veículos por:
-
-  * Preço
-  * Ano
-  * Quilometragem
-* Gerar relatórios:
-
-  * Quantidade de veículos cadastrados
-  * Valor total do estoque
-  * Veículo mais caro
-  * Veículo mais barato
-  * Relatório geral
-* Persistência automática dos dados em JSON
-
-## Estrutura do Projeto
+## Estrutura do projeto
 
 ```text
 .
@@ -55,73 +69,152 @@ A proposta é desenvolver um sistema próprio e evoluí-lo gradualmente, aplican
 ├── dados.py
 ├── config.py
 ├── utils.py
-└── carros.json
+├── carros.json
+├── Implementações_futuras.txt
+└── README.md
 ```
 
-## Responsabilidades dos Módulos
+### Responsabilidade dos módulos
 
-* `main.py` → menu principal e ponto de entrada do sistema
-* `funcoes.py` → regras de negócio e operações principais do sistema
-* `dados.py` → leitura e gravação dos dados em JSON
-* `config.py` → carregamento inicial dos dados, marcas e constantes
-* `utils.py` → validações, confirmações e funções auxiliares
+- `main.py`: menu principal e ponto de entrada do programa
+- `funcoes.py`: menus, operações do estoque, filtros, ordenações e relatórios
+- `dados.py`: leitura e gravação dos dados em JSON
+- `config.py`: carregamento inicial dos veículos e configurações compartilhadas
+- `utils.py`: validações, exibição de veículos, títulos e outras funções auxiliares
+- `carros.json`: armazenamento local dos veículos cadastrados
+- `Implementações_futuras.txt`: ideias registradas para versões futuras
 
-## Tecnologias Utilizadas
+## Requisitos
 
-* Python 3
-* JSON
-* Git
-* GitHub
+- Python 3.12 ou superior
+- Git, apenas para clonar ou contribuir com o projeto
 
-## Conceitos Praticados
+O projeto utiliza somente módulos da biblioteca padrão do Python, portanto não é necessário instalar dependências externas.
 
-* Modularização de código
-* Funções reutilizáveis
-* Listas e dicionários
-* Manipulação de arquivos JSON
-* Persistência de dados
-* Validação de entradas
-* Tratamento básico de erros
-* Busca em lista de dicionários
-* Filtros por intervalo
-* Ordenação com `sorted()`, `key`, `lambda` e `reverse`
-* Uso de `len()`, `sum()`, `min()` e `max()` em relatórios
-* Separação de responsabilidades
-* Controle de versão com Git
+## Como executar
 
-## Histórico de Versões
+### 1. Clonar o repositório
+
+```bash
+git clone https://github.com/pauloverleiwork-blip/sistema-estoque-carros-python.git
+```
+
+### 2. Acessar a pasta do projeto
+
+```bash
+cd sistema-estoque-carros-python
+```
+
+### 3. Executar o programa
+
+No Windows:
+
+```bash
+py main.py
+```
+
+Ou:
+
+```bash
+python main.py
+```
+
+No Linux ou macOS:
+
+```bash
+python3 main.py
+```
+
+Caso o arquivo `carros.json` ainda não exista, o sistema iniciará com o estoque vazio e criará o arquivo quando os dados forem salvos.
+
+## Menu principal
+
+```text
+======ESTOQUE DE VEÍCULOS======
+
+1 - Adicionar
+2 - Deletar
+3 - Listar
+4 - Filtrar
+5 - Alterar veículo
+6 - Ordenar veículos
+7 - Relatórios
+0 - Sair
+```
+
+## Tecnologias utilizadas
+
+- Python 3.12
+- JSON
+- Git
+- GitHub
+
+## Conceitos praticados
+
+- Lógica de programação
+- Modularização
+- Funções reutilizáveis
+- Parâmetros e valores de retorno
+- Listas e dicionários
+- List comprehensions
+- Funções `lambda`
+- Ordenação com `sorted`
+- Operações com `min`, `max`, `sum` e `len`
+- Validação de entradas
+- Tratamento de exceções
+- Manipulação de arquivos JSON
+- Persistência de dados
+- Separação de responsabilidades
+- Refatoração
+- Experiência do usuário em aplicações CLI
+- Versionamento com Git e GitHub
+
+## Histórico de versões
+
+### v1.3.0
+
+- Reformulação do fluxo de alteração de veículos
+- Limpeza da tela entre os menus
+- Padronização dos títulos
+- Exibição do veículo e do valor atual durante alterações
+- Melhorias nas validações, mensagens e navegação
+- Refatorações para reduzir repetição e melhorar a manutenção
 
 ### v1.2.0
 
-* Adicionada edição completa dos dados dos veículos
-* Criada função genérica para alteração de campos
-* Adicionada busca por marca, modelo e cor
-* Criada listagem de marcas disponíveis
-* Adicionada ordenação por preço, ano e quilometragem
-* Adicionado menu de relatórios
-* Criados relatórios de quantidade, valor total, veículo mais caro, veículo mais barato e relatório geral
-* Melhorada a validação de textos no cadastro
-* Adicionada confirmação antes de excluir veículos
-* Melhorada a organização das funções por seções
+- Implementação de ordenação de veículos
+- Criação dos relatórios do estoque
+- Expansão das opções de busca e filtragem
+- Melhorias na organização das funções
 
 ### v1.1.0
 
-* Refatoração completa para arquitetura modular
-* Criação dos módulos `dados.py`, `config.py`, `funcoes.py` e `utils.py`
-* Implementação de filtros por quilometragem e ano
-* Centralização das validações de entrada
-* Redução de duplicação de código através de funções reutilizáveis
-* Melhor organização e manutenção do projeto
+- Refatoração para uma arquitetura modular
+- Criação dos módulos `dados.py`, `config.py`, `funcoes.py` e `utils.py`
+- Centralização das validações
+- Persistência dos dados em JSON
+- Redução da duplicação de código
 
-## Próximos Objetivos
+## Próximas implementações estudadas
 
-* Melhorar validações de ano, preço e quilometragem
-* Criar backup automático dos dados
-* Tratar arquivo JSON corrompido
-* Exportar relatórios para arquivo `.txt`
-* Evoluir o projeto para Programação Orientada a Objetos
-* Criar testes automatizados futuramente
+As ideias abaixo fazem parte do planejamento e ainda não representam funcionalidades concluídas:
 
-## Objetivo Profissional
+- Geração dinâmica de menus
+- Temas de cores
+- Migração para SQLite
+- Exportação de relatórios
+- Logs
+- Testes automatizados
+- Interface gráfica
 
-Este projeto faz parte da minha transição e evolução na área de tecnologia, servindo como evidência prática da minha capacidade de estudar, aplicar conceitos, melhorar código existente e evoluir um sistema progressivamente.
+## Objetivo do projeto
+
+Este projeto foi criado como parte da minha jornada de aprendizado em Python.
+
+A proposta é evoluir o mesmo sistema por versões, aplicando novos conhecimentos de programação, organização de código, Git, GitHub e desenvolvimento de software. Dessa forma, o histórico do repositório também registra minha evolução prática.
+
+## Autor
+
+Desenvolvido por **Paulo Verlei**.
+
+GitHub: [pauloverleiwork-blip](https://github.com/pauloverleiwork-blip)
