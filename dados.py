@@ -13,4 +13,4 @@ def carregar_dados():
 
 def salvar_dados(carros):
     with open(ARQUIVO_DADOS, 'w', encoding='utf-8') as arquivo:
-        json.dump(carros, arquivo, indent=2, ensure_ascii=False) ,
+        json.dump(carros, arquivo, indent=2, ensure_ascii=False)

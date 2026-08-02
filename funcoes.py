@@ -1,7 +1,7 @@
 
 from config import carros, marcas, modulos_str, modulos_int
 from dados import salvar_dados
-from utils import validacao_int, validacao_texto, mostrar_carros, confirmar_acao, validacao_ano, verificar_veiculos, mostrar_titulo, limpar_tela
+from utils import validacao_int, validacao_texto, mostrar_carros, confirmar_acao, validacao_ano, verificar_veiculos, mostrar_titulo
 
 #=====ADICIONA VEICULOS AO ESTOQUE=====
 
@@ -24,6 +24,8 @@ def adicionar_carro():
 
     carros.append(novo_carro)
     salvar_dados(carros)
+    print('\nVeículo adicionado com sucesso!')
+    input('\nPressione Enter para continuar.')
 
     if novo_carro['marca'] not in marcas:
         marcas.append(novo_carro['marca'])
@@ -54,6 +56,7 @@ def deletar_carro():
             mostrar_carros([carro_selecionado])
             if confirmar_acao("\nTem certeza que deseja deletar o veículo? [S/N]: "):
                 carro_removido = carros.pop(op - 1)
+                salvar_dados(carros)
                 print('\nOperação realizada com sucesso!')
                 input('\nPressione Enter para continuar.')
 
@@ -62,13 +65,13 @@ def deletar_carro():
                 if not any(carro['marca'] == marca_removida for carro in carros):
                     marcas.remove(marca_removida)
 
-                salvar_dados(carros)
                 return
             else:
                 print('\nOperação cancelada!')
                 input('\nPressione Enter para continuar.')
         else:
             print(f'\nDigite uma opção entre 0 e {len(carros)}')
+            input('\nPressione Enter para continuar.')
 
 #=====LISTAS=====
 
@@ -128,6 +131,7 @@ def menu_filtrar_carros():
             break
         else:
             print('\nDigite uma opção entre 0 e 7.')
+            input('\nPressione Enter para continue.')
 
 #=====FILTROS DE VEICULOS=====#
 
@@ -209,6 +213,7 @@ def menu_ordenar_carros():
             break
         else:
             print('\nDigite uma opção entre 0 e 6.')
+            input('\nPressione Enter para continuar.')
 
 #Função de ordenação de veiculos
 
@@ -241,8 +246,9 @@ def menu_alterar_veiculos():
             if 1 <= op <= len(carros):
                 carro_selecionado = carros[op - 1]
                 menu_opcoes_alterar_veiculos(carro_selecionado)
-        else:
-            print(f'\nSelecione uma opção entre 0 e {len(carros)}.')
+            else:
+                print(f'\nSelecione uma opção entre 0 e {len(carros)}.')
+                input('\nPressione Enter para continuar.')
 
 
 def menu_opcoes_alterar_veiculos(veiculo):
@@ -253,7 +259,7 @@ def menu_opcoes_alterar_veiculos(veiculo):
         op = validacao_int('\nDigite: ')
 
         if op == 1:
-            mostrar_titulo('ALTERAR marca')
+            mostrar_titulo('ALTERAR MARCA')
             alterar_veiculo('\nDigite a nova marca: ', 'marca', 'texto',veiculo)
         elif op == 2:
             mostrar_titulo('ALTERAR PREÇO')
@@ -274,13 +280,18 @@ def menu_opcoes_alterar_veiculos(veiculo):
             break
         else:
             print('\nDigite uma opção entre 0 e 6.')
+            input('\nPressione Enter para continuar.')
 
 #Altera qualquer informação do veiculo
-def alterar_veiculo(msg,campo,tipo,veiculo):
+def alterar_veiculo(msg, campo, tipo, veiculo):
     while True:
         if tipo == 'numero':
-            print(f'\nValor atual: {veiculo[campo]:,}')
-            valor = validacao_int(msg)
+            if campo == 'ano':
+                print(f'\nValor atual: {veiculo['ano']}')
+                valor = validacao_ano('Digite o ano: ')
+            else:
+                print(f'\nValor atual: {veiculo[campo]:,}')
+                valor = validacao_int(msg)
 
             if valor == 0:
                 break
@@ -300,9 +311,9 @@ def alterar_veiculo(msg,campo,tipo,veiculo):
                 if carro['marca'] not in marcas:
                     marcas.append(carro['marca'])
 
+        salvar_dados(carros)
         print('\nVeículo atualizado com sucesso!')
         input('\nPressione Enter para continuar.')
-        salvar_dados(carros)
         break
 
 #======RELATÓRIOS======
@@ -327,6 +338,7 @@ def menu_relatorio():
             break
         else:
             print('\nDigite uma opção entre 0 e 5.')
+            input('\nPressione Enter para continuar.')
 
 def relatorio_total_veiculos():
     if verificar_veiculos():
